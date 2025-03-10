@@ -33,8 +33,6 @@ npm install
 ### **3. Install Dependencies**
 
 ```sh
-node server.js
-# or
 npm run server
 ```
 
@@ -128,5 +126,14 @@ To test the real-time collaboration functionality:
 - `glob@7.2.3`: Glob versions prior to v9 are no longer supported.
 - `domexception@4.0.0`: Use your platform's native DOMException instead.
 - `abab@2.0.6`: Use your platform's native atob() and btoa() methods instead.
+
+### Experimental Warning
+
+```
+- (node:1720) ExperimentalWarning: Type Stripping is an experimental feature and might change at any time
+- (node:1720) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///path/to/project/server.ts is not specified and it doesn't parse as CommonJS. Reparsing as ES module because module syntax was detected. This incurs a performance overhead. To eliminate this warning, add "type": "module" to your package.json.
+```
+
+This warning appears because both the frontend and backend are included in the same project. To eliminate this warning, you can either add `"type": "module"` to the `package.json` file or separate the backend into a different project.
 
 We are working to resolve these warnings in future updates of the project. In the meantime, these warnings should not affect the functionality of the project.
