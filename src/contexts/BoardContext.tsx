@@ -137,7 +137,7 @@ export const BoardProvider = ({ children }: BoardProviderProps) => {
             setColumns,
             tasks,
             setTasks,
-            socket as any
+            socket
           ),
         updateTask: (taskId, content) =>
           updateTask(taskId, content, tasks, setTasks, socket),
