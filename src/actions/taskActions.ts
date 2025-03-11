@@ -9,7 +9,7 @@ export const createTask = (
   setColumns: React.Dispatch<React.SetStateAction<Record<string, Column>>>,
   tasks: Record<string, Task>,
   setTasks: React.Dispatch<React.SetStateAction<Record<string, Task>>>,
-  socket: Socket
+  socket: Socket | null
 ): string => {
   const newTaskId = uuidv4();
   const newTask = {
@@ -47,9 +47,9 @@ export const createTask = (
 export const updateTask = (
   taskId: string,
   content: string,
-  tasks: Record<string, any>,
-  setTasks: (tasks: Record<string, any>) => void,
-  socket: any
+  tasks: Record<string, Task>,
+  setTasks: (tasks: Record<string, Task>) => void,
+  socket: Socket | null
 ) => {
   if (!tasks[taskId]) return;
 
@@ -73,11 +73,11 @@ export const updateTask = (
 
 export const deleteTask = (
   taskId: string,
-  columns: Record<string, any>,
-  setColumns: (columns: Record<string, any>) => void,
-  tasks: Record<string, any>,
-  setTasks: (tasks: Record<string, any>) => void,
-  socket: any
+  columns: Record<string, Column>,
+  setColumns: (columns: Record<string, Column>) => void,
+  tasks: Record<string, Task>,
+  setTasks: (tasks: Record<string, Task>) => void,
+  socket: Socket | null
 ) => {
   if (!tasks[taskId]) return;
 
@@ -114,9 +114,9 @@ export const moveTask = (
   sourceColumnId: string,
   destinationColumnId: string,
   newIndex: number,
-  columns: Record<string, any>,
-  setColumns: (columns: Record<string, any>) => void,
-  socket: any
+  columns: Record<string, Column>,
+  setColumns: (columns: Record<string, Column>) => void,
+  socket: Socket | null
 ) => {
   if (sourceColumnId === destinationColumnId) {
     const column = columns[sourceColumnId];
@@ -168,27 +168,27 @@ export const moveTask = (
   }
 };
 
-export const startEditingTask = (taskId: string, socket: any) => {
+export const startEditingTask = (taskId: string, socket: Socket | null) => {
   const userId = localStorage.getItem("userId");
   if (socket) {
     socket.emit("task-editing", { userId, taskId });
   }
 };
 
-export const stopEditingTask = (taskId: string, socket: any) => {
+export const stopEditingTask = (taskId: string, socket: Socket | null) => {
   if (socket) {
     socket.emit("task-editing-stopped", { taskId });
   }
 };
 
-export const startMovingTask = (taskId: string, socket: any) => {
+export const startMovingTask = (taskId: string, socket: Socket | null) => {
   const userId = localStorage.getItem("userId");
   if (socket) {
     socket.emit("task-moving", { userId, taskId });
   }
 };
 
-export const stopMovingTask = (taskId: string, socket: any) => {
+export const stopMovingTask = (taskId: string, socket: Socket | null) => {
   if (socket) {
     socket.emit("task-moving-stopped", { taskId });
   }
