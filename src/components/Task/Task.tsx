@@ -1,78 +1,29 @@
-import React, { useState, useEffect, useMemo } from "react";
-import { useBoard } from "@/contexts/BoardContext";
+import React from "react";
+import { TaskProps, useTask } from "@/hooks/useTask";
 import TaskContent from "./TaskContent";
 import TaskEditForm from "./TaskEditForm";
 import TaskActions from "./TaskActions";
 import TaskDragDrop from "./TaskDragDrop";
 import TaskStatus from "./TaskStatus";
+import formatDate from "@/utils/dateUtils";
 
-interface TaskProps {
-  task: {
-    id: string;
-    content: string;
-  };
+interface IProps extends TaskProps {
   index: number;
   columnId: string;
 }
 
-const Task: React.FC<TaskProps> = ({ task, index, columnId }) => {
-  const [isEditing, setIsEditing] = useState(false);
-  const [editContent, setEditContent] = useState(task.content);
+const Task: React.FC<IProps> = ({ task, index, columnId }) => {
   const {
-    updateTask,
+    isEditing,
+    setIsEditing,
+    editContent,
+    setEditContent,
+    handleSave,
+    handleKeyPress,
+    isBeingEditedByOther,
+    isBeingMovedByOther,
     deleteTask,
-    activeEditors,
-    activeMovings,
-    startEditingTask,
-    stopEditingTask,
-  } = useBoard();
-
-  const isBeingEditedByOther = useMemo(
-    () =>
-      !!activeEditors[task.id] &&
-      activeEditors[task.id] !== localStorage.getItem("userId"),
-    [activeEditors, task.id]
-  );
-
-  const isBeingMovedByOther = useMemo(
-    () =>
-      !!activeMovings[task.id] &&
-      activeMovings[task.id] !== localStorage.getItem("userId"),
-    [activeMovings, task.id]
-  );
-
-  useEffect(() => {
-    setEditContent(task.content);
-  }, [task.content]);
-
-  useEffect(() => {
-    if (isEditing) {
-      startEditingTask(task.id);
-    } else {
-      stopEditingTask(task.id);
-    }
-
-    return () => {
-      if (isEditing) {
-        stopEditingTask(task.id);
-      }
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isEditing, task.id]);
-
-  const handleSave = () => {
-    if (editContent.trim() !== task.content) {
-      updateTask(task.id, editContent.trim());
-    }
-    setIsEditing(false);
-  };
-
-  const handleKeyPress = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-    if (e.key === "Enter" && !e.shiftKey) {
-      e.preventDefault();
-      handleSave();
-    }
-  };
+  } = useTask({ task });
 
   return (
     <TaskDragDrop
@@ -84,7 +35,7 @@ const Task: React.FC<TaskProps> = ({ task, index, columnId }) => {
       isEditing={isEditing}
     >
       <div
-        className={`p-3 bg-white rounded shadow ${
+        className={`p-3 bg-white rounded shadow relative ${
           isBeingEditedByOther || isBeingMovedByOther
             ? "border-2 border-yellow-400"
             : ""
@@ -117,6 +68,9 @@ const Task: React.FC<TaskProps> = ({ task, index, columnId }) => {
             isBeingMovedByOther={isBeingMovedByOther}
           />
         )}
+        <div className="flex text-sm text-gray-400 absolute bottom-2 left-2 ">
+          {formatDate(task.createdAt)}
+        </div>
       </div>
     </TaskDragDrop>
   );

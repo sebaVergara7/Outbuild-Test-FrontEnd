@@ -1,28 +1,19 @@
+import { TaskStatusProps, useTaskStatus } from "@/hooks/useTaskStatus";
 import React from "react";
-
-interface TaskStatusProps {
-  isBeingEditedByOther: boolean;
-  isBeingMovedByOther: boolean;
-}
 
 const TaskStatus: React.FC<TaskStatusProps> = ({
   isBeingEditedByOther,
   isBeingMovedByOther,
 }) => {
-  return (
-    <>
-      {isBeingEditedByOther && (
-        <div className="text-xs text-yellow-600 mb-1">
-          Being edited by another user
-        </div>
-      )}
+  const { showTaskStatus, showTaskStatusText } = useTaskStatus({
+    isBeingEditedByOther,
+    isBeingMovedByOther,
+  });
 
-      {isBeingMovedByOther && (
-        <div className="text-xs text-yellow-600 mb-1">
-          Being moved by another user
-        </div>
-      )}
-    </>
+  if (!showTaskStatus) return null;
+
+  return (
+    <div className="text-xs text-yellow-600 mb-1">{showTaskStatusText}</div>
   );
 };
 

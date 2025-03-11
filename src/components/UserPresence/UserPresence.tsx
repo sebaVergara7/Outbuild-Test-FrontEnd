@@ -7,9 +7,13 @@ const UserPresence: React.FC = () => {
 
   return (
     <div className="mt-2 flex flex-wrap gap-1">
-      {connectedUsers.map((user) => (
-        <UserBadge key={user.userId} user={user} />
-      ))}
+      {connectedUsers.length > 0 ? (
+        connectedUsers.map((user) => (
+          <UserBadge key={user.userId} user={user} />
+        ))
+      ) : (
+        <p>No users connected</p>
+      )}
     </div>
   );
 };
