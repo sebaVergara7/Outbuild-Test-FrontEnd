@@ -30,7 +30,7 @@ cd Outbuild-Test-FrontEnd
 npm install
 ```
 
-### **3. Install Dependencies**
+### **3. Start the Node.js WebSocket Server**
 
 ```sh
 npm run server
@@ -60,18 +60,37 @@ npm test
 
 ```
 /
-├── components/        # React components
-│   ├── Board/         # Board components
-│   ├── Column/        # Column components
-│   ├── Task/          # Task components
-│   └── UserPresence/  # Connected users indicators components
-├── contexts/          # React contexts
-├── hooks/             # Custom hooks
-├── pages/             # Next.js pages
-├── public/            # Static files
-├── styles/            # CSS styles
-├── tests/             # Tests
-└── server.ts          # WebSocket server
+OUTBUILD-TEST-FRONTEND/
+│── __mocks__/              # External libraries mocks
+│── __tests__/              # Automated tests
+│── .husky/                 # Husky configuration
+│── node_modules/           # Project dependencies
+│── public/                 # Static files
+│── src/                    # Main source code
+│   ├── actions/            # React context actions
+│   ├── components/         # React components
+│   │   ├── Board/          # Board components
+│   │   ├── Column/         # Column components
+│   │   ├── Task/           # Task components
+│   │   └── UserPresence/   # Connected users indicators components
+│   ├── contexts/           # React contexts
+│   ├── handlers/           # React context handlers
+│   ├── hooks/              # Custom hooks
+│   ├── pages/              # Next.js pages
+│   ├── styles/             # CSS styles
+│   ├── utils/              # Common utils
+│── eslint.config.mjs       # Eslint configuration
+│── jest.config.js          # Jest configuration for testing
+│── jest.setup.js           # Jest dom setup
+│── next.config.ts          # Next configuration
+│── package-lock.json       # Dependency lock file
+│── package.json            # Node.js project configuration
+│── postcss.config.js       # PostCSS configuration
+│── README.md               # Project documentation
+│── server.ts               # WebSocket server
+│── tailwind.config.js      # Tailwind CSS configuration
+│── tsconfig.jest.json      # TypeScript Jest configuration
+└── tsconfig.json           # TypeScript configuration
 ```
 
 🚀 **Ready for production!**
