@@ -105,12 +105,12 @@ OUTBUILD-TEST-FRONTEND/
 
 ### Concurrency Handling
 
-- Implementation of a "soft lock" system that shows visual indicators when a user is editing a task.
-- Tasks being edited by other users cannot be moved or edited until they are released.
+- Implementation of a "soft lock" system that shows visual indicators when a user is editing or moving a task.
+- Tasks that are being edited or moved by other users cannot be moved or edited until they are released.
 
 ### UX/UI
 
-- Visual feedback for real-time actions (highlighting tasks being edited, connected user indicators).
+- Visual feedback for real-time actions (highlighting tasks being edited, tasks being moved, connected user indicators).
 - Clean interface with adequate contrast to improve readability.
 - Smooth transitions for task movements.
 
@@ -155,4 +155,4 @@ To test the real-time collaboration functionality:
 
 This warning appears because both the frontend and backend are included in the same project. To eliminate this warning, you can either add `"type": "module"` to the `package.json` file or separate the backend into a different project.
 
-We are working to resolve these warnings in future updates of the project. In the meantime, these warnings should not affect the functionality of the project.
+These warnings should not affect the functionality of the project.
