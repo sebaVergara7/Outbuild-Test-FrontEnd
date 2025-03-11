@@ -1,3 +1,7 @@
+/**
+ * Custom App component to initialize pages with global styles and context providers.
+ */
+
 import React from "react";
 import { BoardProvider } from "@/contexts/BoardContext";
 import "@/styles/globals.css";

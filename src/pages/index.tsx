@@ -1,3 +1,7 @@
+/**
+ * Home page component that initializes user data and displays the collaborative task board.
+ */
+
 import React, { useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
 import Board from "@/components/Board/Board";
