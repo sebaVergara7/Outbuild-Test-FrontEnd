@@ -1,3 +1,7 @@
+/**
+ * Custom hook to manage drag-and-drop functionality for tasks.
+ */
+
 import { useRef, useEffect } from "react";
 import { useDrag, useDrop } from "react-dnd";
 import { useBoard } from "@/contexts/BoardContext";

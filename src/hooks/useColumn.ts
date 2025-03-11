@@ -1,3 +1,7 @@
+/**
+ * Custom hook to manage column state and handle task drag-and-drop operations.
+ */
+
 import { useState, useRef, useEffect, useCallback } from "react";
 import { useDrop } from "react-dnd";
 import { useBoard } from "@/contexts/BoardContext";

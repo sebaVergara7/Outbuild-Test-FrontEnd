@@ -1,3 +1,7 @@
+/**
+ * Custom hook to determine and display the current activity of a user.
+ */
+
 import { useMemo } from "react";
 import { useBoard } from "@/contexts/BoardContext";
 

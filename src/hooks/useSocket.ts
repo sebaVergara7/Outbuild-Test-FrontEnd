@@ -1,3 +1,7 @@
+/**
+ * Custom hook to initialize and manage a socket connection.
+ */
+
 import { useEffect, useState } from "react";
 import { io, Socket } from "socket.io-client";
 

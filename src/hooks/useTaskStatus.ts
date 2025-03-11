@@ -1,3 +1,7 @@
+/**
+ * Custom hook to determine and display the status of a task being edited or moved by another user.
+ */
+
 import { useMemo } from "react";
 
 export interface TaskStatusProps {

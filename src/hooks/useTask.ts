@@ -1,3 +1,7 @@
+/**
+ * Custom hook to manage task state, including editing and movement operations.
+ */
+
 import { useState, useEffect, useMemo, useCallback } from "react";
 import { useBoard } from "@/contexts/BoardContext";
 
