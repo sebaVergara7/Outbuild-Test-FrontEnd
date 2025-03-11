@@ -1,48 +1,59 @@
 import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import Column from "@/components/Column/Column";
-import { BoardProvider } from "@/contexts/BoardContext";
-import { DndProvider } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
+import { BoardProvider, useBoard } from "@/contexts/BoardContext";
 
-jest.mock("react-dnd");
-jest.mock("react-dnd-html5-backend");
-
-const mockCreateTask = jest.fn();
-
+// Mocks
 jest.mock("@/contexts/BoardContext", () => ({
-  ...jest.requireActual("@/contexts/BoardContext"),
-  useBoard: () => ({
-    tasks: {
-      "task-1": { id: "task-1", content: "Task 1" },
-      "task-2": { id: "task-2", content: "Task 2" },
-    },
-    createTask: mockCreateTask,
-    moveTask: jest.fn(),
-    updateTask: jest.fn(),
-    deleteTask: jest.fn(),
-    activeEditors: {},
-    activeMovings: {},
-    startEditingTask: jest.fn(),
-    stopEditingTask: jest.fn(),
-    startMovingTask: jest.fn(),
-    stopMovingTask: jest.fn(),
-  }),
+  BoardProvider: ({ children }: { children: React.ReactNode }) => children,
+  useBoard: jest.fn(),
 }));
 
-const mockColumn = {
+jest.mock("react-dnd");
+
+const mockCreateTask = jest.fn();
+const mockMoveTask = jest.fn();
+const mockUpdateTask = jest.fn();
+const mockDeleteTask = jest.fn();
+const mockStartEditingTask = jest.fn();
+const mockStopEditingTask = jest.fn();
+const mockStartMovingTask = jest.fn();
+const mockStopMovingTask = jest.fn();
+
+const defaultBoardContext = {
+  tasks: {
+    "task-1": { id: "task-1", content: "Task 1" },
+    "task-2": { id: "task-2", content: "Task 2" },
+  },
+  createTask: mockCreateTask,
+  moveTask: mockMoveTask,
+  updateTask: mockUpdateTask,
+  deleteTask: mockDeleteTask,
+  activeEditors: {},
+  activeMovings: {},
+  startEditingTask: mockStartEditingTask,
+  stopEditingTask: mockStopEditingTask,
+  startMovingTask: mockStartMovingTask,
+  stopMovingTask: mockStopMovingTask,
+};
+
+const defaultColumn = {
   id: "column-1",
   title: "Test Column",
   taskIds: ["task-1", "task-2"],
 };
 
-const renderColumnWithDnd = (column: any) => {
+// Helper function to render Column component
+const renderColumn = (column = defaultColumn, contextOverrides = {}) => {
+  (useBoard as jest.Mock).mockReturnValue({
+    ...defaultBoardContext,
+    ...contextOverrides,
+  });
+
   return render(
-    <DndProvider backend={HTML5Backend}>
-      <BoardProvider>
-        <Column column={column} />
-      </BoardProvider>
-    </DndProvider>
+    <BoardProvider>
+      <Column column={column} />
+    </BoardProvider>
   );
 };
 
@@ -51,47 +62,39 @@ describe("Column Component", () => {
     jest.clearAllMocks();
   });
 
-  test("renders column title and tasks count correctly", () => {
-    renderColumnWithDnd(mockColumn);
+  test("renders column title, tasks count, and tasks correctly", () => {
+    renderColumn();
     expect(screen.getByText("Test Column")).toBeInTheDocument();
     expect(screen.getByText("2 tasks")).toBeInTheDocument();
-  });
-
-  test("renders all tasks in the column", () => {
-    renderColumnWithDnd(mockColumn);
     expect(screen.getByText("Task 1")).toBeInTheDocument();
     expect(screen.getByText("Task 2")).toBeInTheDocument();
   });
 
-  test("shows add task form when add button is clicked", () => {
-    renderColumnWithDnd(mockColumn);
+  test("handles add task form interactions correctly", () => {
+    renderColumn();
 
     fireEvent.click(screen.getByText("+ Add task"));
-
     expect(screen.getByPlaceholderText("Task content...")).toBeInTheDocument();
     expect(screen.getByText("Add")).toBeInTheDocument();
     expect(screen.getByText("Cancel")).toBeInTheDocument();
-  });
 
-  test("creates new task when form is submitted", () => {
-    renderColumnWithDnd(mockColumn);
-
-    fireEvent.click(screen.getByText("+ Add task"));
     const input = screen.getByPlaceholderText("Task content...");
     fireEvent.change(input, { target: { value: "New task content" } });
     fireEvent.click(screen.getByText("Add"));
-
     expect(mockCreateTask).toHaveBeenCalledWith("column-1", "New task content");
-  });
-
-  test("cancels task creation when cancel button is clicked", () => {
-    renderColumnWithDnd(mockColumn);
 
     fireEvent.click(screen.getByText("+ Add task"));
     fireEvent.click(screen.getByText("Cancel"));
-
     expect(
       screen.queryByPlaceholderText("Task content...")
     ).not.toBeInTheDocument();
+  });
+
+  test("shows correct task count message based on number of tasks", () => {
+    renderColumn({ ...defaultColumn, taskIds: ["task-1"] });
+    expect(screen.getByText("1 tasks")).toBeInTheDocument();
+
+    renderColumn({ ...defaultColumn, taskIds: [] });
+    expect(screen.getByText("0 tasks")).toBeInTheDocument();
   });
 });
