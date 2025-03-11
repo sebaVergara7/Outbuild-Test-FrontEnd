@@ -1,3 +1,7 @@
+/**
+ * Main Board container component that provides drag-and-drop functionality and renders the header and content sections of the Kanban board.
+ */
+
 import React from "react";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";

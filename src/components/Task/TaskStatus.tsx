@@ -1,3 +1,7 @@
+/**
+ * Component that displays a status message when a task is being edited or moved by another user, helping coordinate collaborative actions.
+ */
+
 import { TaskStatusProps, useTaskStatus } from "@/hooks/useTaskStatus";
 import React from "react";
 

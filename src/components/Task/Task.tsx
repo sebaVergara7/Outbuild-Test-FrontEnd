@@ -1,3 +1,7 @@
+/**
+ * Main Task component that integrates several sub-components to represent a task card. Handles editing state, drag-and-drop functionality, and displays task content with its creation date.
+ */
+
 import React from "react";
 import { TaskProps, useTask } from "@/hooks/useTask";
 import TaskContent from "./TaskContent";

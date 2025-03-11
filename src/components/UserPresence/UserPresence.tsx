@@ -1,3 +1,7 @@
+/**
+ * Displays a list of connected users, showing their presence in real time.
+ */
+
 import React from "react";
 import { useBoard } from "@/contexts/BoardContext";
 import UserBadge from "./UserBadge";

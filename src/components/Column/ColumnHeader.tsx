@@ -1,3 +1,7 @@
+/**
+ * Header component for a column that displays the column title and the count of tasks it contains.
+ */
+
 import React from "react";
 
 interface ColumnHeaderProps {

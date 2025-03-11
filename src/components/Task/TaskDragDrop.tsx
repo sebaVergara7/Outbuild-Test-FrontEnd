@@ -1,3 +1,7 @@
+/**
+ * Wrapper component that adds drag-and-drop functionality to task cards using react-dnd and framer-motion for animations. Handles the visual effects when a task is being dragged.
+ */
+
 import React from "react";
 import { motion } from "framer-motion";
 import { TaskDragDropProps, useTaskDragDrop } from "@/hooks/useTaskDragDrop";

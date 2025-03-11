@@ -1,3 +1,7 @@
+/**
+ * Button component that allows users to add new tasks to a column. Displays an "Add task" label and triggers the provided onClick handler when clicked.
+ */
+
 import React from "react";
 
 interface AddTaskButtonProps {

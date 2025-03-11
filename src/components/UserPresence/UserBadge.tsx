@@ -1,3 +1,7 @@
+/**
+ * Displays a badge with the user's name and activity status for quick identification.
+ */
+
 import React from "react";
 import UserActivity from "./UserActivity";
 

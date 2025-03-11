@@ -1,3 +1,7 @@
+/**
+ * Component that displays action buttons for editing or deleting a task. Buttons are disabled when the task is being edited or moved by another user.
+ */
+
 import React from "react";
 
 interface TaskActionsProps {

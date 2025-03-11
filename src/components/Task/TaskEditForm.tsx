@@ -1,3 +1,7 @@
+/**
+ * Form component for editing an existing task, featuring a textarea for content modification and buttons to save or cancel the changes.
+ */
+
 import React from "react";
 
 interface TaskEditFormProps {

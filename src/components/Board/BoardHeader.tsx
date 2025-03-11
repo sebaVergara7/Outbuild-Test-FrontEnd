@@ -1,3 +1,7 @@
+/**
+ * Header component for the Kanban board displaying the application title and user presence information.
+ */
+
 import React from "react";
 import UserPresence from "@/components/UserPresence/UserPresence";
 

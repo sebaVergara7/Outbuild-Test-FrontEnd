@@ -1,3 +1,7 @@
+/**
+ * Component that displays the content of a task with proper text formatting, including whitespace preservation and word wrapping.
+ */
+
 import React from "react";
 
 interface TaskContentProps {

@@ -1,3 +1,7 @@
+/**
+ * Renders the main content area of the Kanban board, displaying all columns horizontally with scrolling enabled.
+ */
+
 import React from "react";
 import Column from "@/components/Column/Column";
 

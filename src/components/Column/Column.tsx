@@ -1,3 +1,7 @@
+/**
+ * Column component representing a vertical lane in the Kanban board. Manages its own tasks, displays a header with column title and task count, and provides functionality to add new tasks.
+ */
+
 import React from "react";
 import TaskList from "./TaskList";
 import AddTaskForm from "./AddTaskForm";

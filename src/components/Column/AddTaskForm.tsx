@@ -1,3 +1,7 @@
+/**
+ * Form component for adding a new task, containing a textarea for the task content and buttons for confirming or canceling the operation.
+ */
+
 import React from "react";
 
 interface AddTaskFormProps {

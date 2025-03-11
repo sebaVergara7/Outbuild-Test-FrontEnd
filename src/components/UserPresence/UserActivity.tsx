@@ -1,3 +1,7 @@
+/**
+ * Displays the user's activity status, providing real-time updates on their engagement.
+ */
+
 import React from "react";
 import { UserActivityProps, useUserActivity } from "@/hooks/useUserActivity";
 
