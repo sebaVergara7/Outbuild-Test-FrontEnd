@@ -68,7 +68,7 @@ app.prepare().then(() => {
   io.on("connection", (socket) => {
     console.log("User connected:", socket.id);
 
-    // Cuando un usuario se une al tablero
+    // When a user joins the board
     socket.on(
       "join-board",
       (userData: { userId: string; username: string }) => {
@@ -78,31 +78,31 @@ app.prepare().then(() => {
           username: userData.username,
         };
 
-        // Agregar usuario a la lista
+        // Add user to the list
         connectedUsers = connectedUsers.filter(
           (u) => u.userId !== userData.userId
         );
         connectedUsers.push(user);
 
-        // Enviar el estado actual del tablero al usuario
+        // Send the current board state to the user
         socket.emit("board-update", boardState);
 
-        // Notificar a todos los usuarios sobre el nuevo usuario que se une al tablero (incluyendo al usuario mismo)
+        // Notify all users about the new user joining the board (including the user itself)
         io.emit("user-connected", connectedUsers);
       }
     );
 
-    // Cuando un usuario actualiza el tablero
+    // When a user updates the board
     socket.on("board-update", (update: Partial<BoardState>) => {
-      // Actualizar el estado del tablero
+      // Update the board state
       if (update.tasks) boardState.tasks = update.tasks;
       if (update.columns) boardState.columns = update.columns;
 
-      // Transmitir el estado actualizado del tablero a todos los usuarios excepto el remitente
+      // Transmit the updated board state to all users except the sender
       socket.broadcast.emit("board-update", update);
     });
 
-    // Cuando un usuario comienza a editar una tarea
+    // When a user starts editing a task
     socket.on(
       "task-editing",
       ({ userId, taskId }: { userId: string; taskId: string }) => {
@@ -110,12 +110,12 @@ app.prepare().then(() => {
       }
     );
 
-    // Cuando un usuario deja de editar una tarea
+    // When a user stops editing a task
     socket.on("task-editing-stopped", ({ taskId }: { taskId: string }) => {
       io.emit("task-editing-stopped", { taskId });
     });
 
-    // Cuando un usuario comienza a mover una tarea
+    // When a user starts moving a task
     socket.on(
       "task-moving",
       ({ userId, taskId }: { userId: string; taskId: string }) => {
@@ -123,21 +123,21 @@ app.prepare().then(() => {
       }
     );
 
-    // Cuando un usuario deja de mover una tarea
+    // When a user stops moving a task
     socket.on("task-moving-stopped", ({ taskId }: { taskId: string }) => {
       io.emit("task-moving-stopped", { taskId });
     });
 
-    // Cuando un usuario se desconecta
+    // When a user disconnects
     socket.on("disconnect", () => {
       console.log("User disconnected:", socket.id);
 
-      // Eliminar al usuario de la lista
+      // Remove the user from the list
       connectedUsers = connectedUsers.filter(
         (user) => user.socketId !== socket.id
       );
 
-      // Notificar a todos los usuarios sobre el usuario que se desconecta del tablero
+      // Notify all users about the user disconnecting from the board
       io.emit("user-connected", connectedUsers);
     });
   });
