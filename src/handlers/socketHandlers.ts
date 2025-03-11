@@ -1,3 +1,7 @@
+/**  
+ * Handles real-time socket events to update board data and user interactions.  
+ */
+
 import { Socket } from "socket.io-client";
 import { Column, Task, User } from "@/contexts/BoardContext";
 
