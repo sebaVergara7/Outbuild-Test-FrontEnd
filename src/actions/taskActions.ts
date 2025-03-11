@@ -1,3 +1,7 @@
+/**
+ * Contains utility functions for task management in a Kanban board, including creating, updating, deleting, and moving tasks with real-time synchronization.
+ */
+
 import { Socket } from "socket.io-client";
 import { v4 as uuidv4 } from "uuid";
 import { Column, Task } from "@/contexts/BoardContext";
