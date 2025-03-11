@@ -1,3 +1,7 @@
+/**
+ * Utility function to format dates according to specified options.
+ */
+
 const formatDate = (
   dateString: string,
   options: Intl.DateTimeFormatOptions = {
