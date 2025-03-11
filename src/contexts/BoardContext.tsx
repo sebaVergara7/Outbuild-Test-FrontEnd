@@ -1,3 +1,7 @@
+/**
+ * Provides the board context, managing tasks, columns, and user interactions in real time.
+ */
+
 import React, {
   createContext,
   useState,
